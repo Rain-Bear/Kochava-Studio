@@ -4,14 +4,29 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - kochava_tracker (1.0.0):
+    - Flutter
+    - KochavaTrackeriOS (= 3.17.0)
+  - KochavaCoreiOS (3.17.0)
+  - KochavaTrackeriOS (3.17.0):
+    - KochavaCoreiOS (~> 3.16)
   - platform_device_id (0.0.1):
+    - Flutter
+  - share (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - advertising_id (from `.symlinks/plugins/advertising_id/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
+  - kochava_tracker (from `.symlinks/plugins/kochava_tracker/ios`)
   - platform_device_id (from `.symlinks/plugins/platform_device_id/ios`)
+  - share (from `.symlinks/plugins/share/ios`)
+
+SPEC REPOS:
+  trunk:
+    - KochavaCoreiOS
+    - KochavaTrackeriOS
 
 EXTERNAL SOURCES:
   advertising_id:
@@ -20,14 +35,22 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
+  kochava_tracker:
+    :path: ".symlinks/plugins/kochava_tracker/ios"
   platform_device_id:
     :path: ".symlinks/plugins/platform_device_id/ios"
+  share:
+    :path: ".symlinks/plugins/share/ios"
 
 SPEC CHECKSUMS:
   advertising_id: 31c738918c2e04d86d80c293357e61e06e87df74
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  kochava_tracker: 56d5bf5a388e662b4e7e2956f9f4f58e7f30a997
+  KochavaCoreiOS: 0dc05fb86adb2bd27f01e8b06e48e621ea789df3
+  KochavaTrackeriOS: 3bc2417dd6b9e7bbe99b8acfee0f83e1447d7469
   platform_device_id: 81b3e2993881f87d0c82ef151dc274df4869aef5
+  share: 0b2c3e82132f5888bccca3351c504d0003b3b410
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
