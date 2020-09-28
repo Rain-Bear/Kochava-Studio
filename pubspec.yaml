@@ -25,6 +25,10 @@ dependencies:
     sdk: flutter
   advertising_id: ^1.0.0
   platform_device_id: ^0.1.1
+  kochava_tracker: ^1.0.0
+  clipboard: ^0.1.2+8
+  share: '>=0.6.5'
+
 
 
   # The following adds the Cupertino Icons font to your application.

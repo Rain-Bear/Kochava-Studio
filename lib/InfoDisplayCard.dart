@@ -4,6 +4,9 @@ import 'dart:io' show Platform;
 import 'package:kochava_studio/studio_extensions.dart';
 import 'package:advertising_id/advertising_id.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import 'package:kochava_tracker/kochava_tracker.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:share/share.dart';
 
 class InfoDisplayCard extends StatefulWidget {
   InfoDisplayCard() : super();
@@ -24,9 +27,47 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
     initialState();
   }
 
+  copyInfo() {
+    String output = '';
+
+    if (Platform.isAndroid) {
+      output =
+          'ADID:\n$_adid\n\nAndroid ID:\n$_platformId\n\nKochava ID:\n$_kvid';
+    } else if (Platform.isIOS) {
+      output = 'IDFA:\n$_adid\n\nIDFV:\n$_platformId\n\nKochava ID:\n$_kvid';
+    } else {
+      output =
+          'Unknown:\n$_adid\n\nUnknown:\n$_platformId\n\nKochava ID:\n$_kvid';
+    }
+
+    FlutterClipboard.copy(output).then((value) => print('copied'));
+  }
+
+  shareInfo() {
+    String output = '';
+
+    if (Platform.isAndroid) {
+      output =
+          'ADID:\n$_adid\n\nAndroid ID:\n$_platformId\n\nKochava ID:\n$_kvid';
+    } else if (Platform.isIOS) {
+      output = 'IDFA:\n$_adid\n\nIDFV:\n$_platformId\n\nKochava ID:\n$_kvid';
+    } else {
+      output =
+          'Unknown:\n$_adid\n\nUnknown:\n$_platformId\n\nKochava ID:\n$_kvid';
+    }
+
+    Share.share(output, subject: 'Kochava Debug Data');
+  }
+
   initialState() async {
-    String tempAdid, tempPlatformId;
+    String tempAdid, tempPlatformId, tempKvid;
     bool tempLat;
+    var config = {
+      KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY:
+          'kokochava-studio-dev-mjmmwqjaw',
+      KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY: 'kokochava-studio-7lbfbpr3',
+    };
+    KochavaTracker.instance.configure(config);
 
     try {
       tempAdid = await AdvertisingId.id;
@@ -46,11 +87,18 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
       tempPlatformId = 'Waiting...';
     }
 
+    try {
+      tempKvid = await KochavaTracker.instance.getDeviceId;
+    } on PlatformException {
+      tempKvid = 'Waiting...';
+    }
+
     if (!mounted) return;
 
     setState(() {
       _adid = tempAdid;
       _platformId = tempPlatformId;
+      _kvid = tempKvid;
       _lat = tempLat;
     });
   }
@@ -97,7 +145,7 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                   Padding(
                       padding: EdgeInsets.all(3),
                       child: Text(
-                        '$_adid',
+                        '$_adid\n',
                       )),
                   Padding(
                       padding: EdgeInsets.all(6),
@@ -108,7 +156,7 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                   Padding(
                       padding: EdgeInsets.all(3),
                       child: Text(
-                        '$_platformId',
+                        '$_platformId\n',
                       )),
                   Padding(
                       padding: EdgeInsets.all(6),
@@ -119,7 +167,7 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                   Padding(
                       padding: EdgeInsets.all(3),
                       child: Text(
-                        'kv_id\n',
+                        '$_kvid\n',
                       )),
                   Align(
                     alignment: Alignment(0.8, -1.0),
@@ -131,7 +179,7 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                           child: Ink(
                             decoration: ShapeDecoration(shape: CircleBorder()),
                             child: FloatingActionButton(
-                                onPressed: () => {},
+                                onPressed: () => shareInfo(),
                                 tooltip: 'Share',
                                 child: Icon(Icons.share)),
                           ),
@@ -141,7 +189,7 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                           child: Ink(
                             decoration: ShapeDecoration(shape: CircleBorder()),
                             child: FloatingActionButton(
-                                onPressed: () => {},
+                                onPressed: () => copyInfo(),
                                 tooltip: 'Copy to clipboard',
                                 child: Icon(Icons.content_copy)),
                           ),
@@ -154,7 +202,7 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                               child: FloatingActionButton(
                                   onPressed: () => refreshIds(),
                                   tooltip: 'Refresh device data',
-                                  child: Icon(Icons.refresh)),
+                                  child: Icon(Icons.info_outline)),
                             ))
                       ],
                     ),
