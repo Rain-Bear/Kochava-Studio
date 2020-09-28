@@ -28,6 +28,7 @@ dependencies:
   kochava_tracker: ^1.0.0
   clipboard: ^0.1.2+8
   share: '>=0.6.5'
+  show_more_text_popup: ^0.2.0
 
 
 

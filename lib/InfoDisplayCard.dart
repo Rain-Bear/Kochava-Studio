@@ -7,6 +7,7 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:kochava_tracker/kochava_tracker.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:share/share.dart';
+import 'package:show_more_text_popup/show_more_text_popup.dart';
 
 class InfoDisplayCard extends StatefulWidget {
   InfoDisplayCard() : super();
@@ -17,7 +18,7 @@ class InfoDisplayCard extends StatefulWidget {
 class _InfoDisplayCardState extends State<InfoDisplayCard> {
   String _advertisingIdType = 'ADID';
   String _platformIdType = 'Android ID';
-
+  GlobalKey key = new GlobalKey();
   String _adid, _platformId, _kvid;
   bool _lat;
 
@@ -25,6 +26,34 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
   void initState() {
     super.initState();
     initialState();
+  }
+
+  showPopup() {
+    String popupText = '';
+
+    if (Platform.isAndroid) {
+      popupText =
+          'The ADID (also called GAID) is an advertising ID provisioned by Google. This will be the primary identifier to measure and test.\n\n The Android ID and Kochava Device ID are both unique to this app and are not useful for troubleshooting, but good to have anyways.';
+    } else if (Platform.isIOS) {
+      popupText =
+          'The IDFA is provisioned by Apple for measuring advertisement conversions. Please be aware, if it is blank or NULL, it is likely that you have Limit Ad Tracking implemented.';
+    } else {
+      popupText =
+          'No idea what platform this is, so not sure what these IDs are.';
+    }
+
+    ShowMoreTextPopup popup = ShowMoreTextPopup(context,
+        text: popupText,
+        textStyle: TextStyle(color: Colors.white),
+        height: 200,
+        width: 200,
+        backgroundColor: kochavaWhite,
+        padding: EdgeInsets.all(4.0),
+        borderRadius: BorderRadius.circular(10.0));
+
+    popup.show(
+      widgetKey: key,
+    );
   }
 
   copyInfo() {
@@ -200,8 +229,9 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
                               decoration:
                                   ShapeDecoration(shape: CircleBorder()),
                               child: FloatingActionButton(
-                                  onPressed: () => refreshIds(),
+                                  onPressed: () => showPopup(),
                                   tooltip: 'Refresh device data',
+                                  key: key,
                                   child: Icon(Icons.info_outline)),
                             ))
                       ],
