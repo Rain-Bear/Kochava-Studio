@@ -1,4 +1,4 @@
-# kochava_studio
+# Kochava Studio
 
 A new Flutter project.
 
