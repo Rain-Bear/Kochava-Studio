@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "978118101320",
+    "firebase_url": "https://studio-5850b.firebaseio.com",
+    "project_id": "studio-5850b",
+    "storage_bucket": "studio-5850b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978118101320:android:8501b9d26a73aa8f218b7d",
+        "android_client_info": {
+          "package_name": "com.kochava.kochava_studio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978118101320-ik6vnpc2vpacbo4uagi28jc7sm6mcnqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTbmPYazpGF4T2yvB701fztUX1Ey-RJ2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978118101320-ik6vnpc2vpacbo4uagi28jc7sm6mcnqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

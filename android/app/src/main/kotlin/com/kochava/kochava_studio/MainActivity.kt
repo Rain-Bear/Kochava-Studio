@@ -1,4 +1,4 @@
-package com.example.kochava_studio
+package com.kochava.kochava_studio
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -69,7 +69,8 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
           'Unknown:\n$_adid\n\nUnknown:\n$_platformId\n\nKochava ID:\n$_kvid';
     }
 
-    FlutterClipboard.copy(output).then((value) => print('copied'));
+    FlutterClipboard.copy(output)
+        .then((value) => {KochavaTracker.instance.sendEventMapObject("Copy")});
   }
 
   shareInfo() {
@@ -85,7 +86,8 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
           'Unknown:\n$_adid\n\nUnknown:\n$_platformId\n\nKochava ID:\n$_kvid';
     }
 
-    Share.share(output, subject: 'Kochava Debug Data');
+    Share.share(output, subject: 'Kochava Debug Data')
+        .then((value) => {KochavaTracker.instance.sendEventMapObject("Share")});
   }
 
   initialState() async {
@@ -94,7 +96,10 @@ class _InfoDisplayCardState extends State<InfoDisplayCard> {
     var config = {
       KochavaTracker.PARAM_ANDROID_APP_GUID_STRING_KEY:
           'kokochava-studio-dev-mjmmwqjaw',
-      KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY: 'kokochava-studio-7lbfbpr3',
+      KochavaTracker.PARAM_IOS_APP_GUID_STRING_KEY:
+          'kokochava-studio-ios-dev-wnw11m',
+      KochavaTracker.PARAM_LOG_LEVEL_ENUM_KEY:
+          KochavaTracker.LOG_LEVEL_ENUM_DEBUG_VALUE,
     };
     KochavaTracker.instance.configure(config);
 
